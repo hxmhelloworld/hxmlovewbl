@@ -178,6 +178,23 @@
             background: #e0445e;
         }
         
+        .close-page {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: #6c757d;
+            color: white;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .close-page:hover {
+            background: #5a6268;
+        }
+        
         /* 响应式设计 */
         @media (max-width: 480px) {
             .container {
@@ -221,17 +238,16 @@
         </div>
         
         <div class="instructions" id="instructions">
-            <p>请按照以下步骤操作：</p>
+            <p>先复制表白文字</p>
             <ol>
-                <li>点击下方按钮打开微信</li>
-                <li>找到备注为"华先猛"的联系人</li>
-                <li>粘贴发送"我同意做你女朋友!"</li>
+                <li>点击下方"复制表白文字"按钮</li>
+                <li>打开微信找到备注为"华先猛"的联系人</li>
+                <li>粘贴发送"华先猛，我同意做你女朋友！"</li>
+                <li>点击下方的"关闭本网页"按钮关闭此页面</li>
             </ol>
             <div style="text-align: center; margin-top: 15px;">
-                <button id="openWechat" style="background: #07c160; color: white; padding: 10px 20px; border-radius: 20px; border: none; cursor: pointer;">
-                    打开微信
-                </button>
                 <div class="copy-text" id="copyText">复制表白文字</div>
+                <button class="close-page" id="closePage">关闭本网页</button>
             </div>
         </div>
     </div>
@@ -243,7 +259,7 @@
             const successMessage = document.getElementById('successMessage');
             const instructions = document.getElementById('instructions');
             const heartsContainer = document.getElementById('heartsContainer');
-            const openWechatBtn = document.getElementById('openWechat');
+            const closePageBtn = document.getElementById('closePage');
             const copyTextBtn = document.getElementById('copyText');
             let noCount = 0;
             
@@ -264,7 +280,7 @@
             
             // 复制文本到剪贴板
             copyTextBtn.addEventListener('click', function() {
-                const textToCopy = "我同意做你女朋友!";
+                const textToCopy = "华先猛，我同意做你女朋友！";
                 navigator.clipboard.writeText(textToCopy).then(() => {
                     copyTextBtn.textContent = "已复制!";
                     setTimeout(() => {
@@ -286,15 +302,11 @@
                 });
             });
             
-            // 打开微信
-            openWechatBtn.addEventListener('click', function() {
-                // 尝试打开微信
-                window.location.href = "weixin://";
-                
-                // 备用方案：如果无法直接打开微信，提示用户手动打开
-                setTimeout(function() {
-                    alert("如果微信没有自动打开，请手动打开微信并找到备注为'华先猛'的联系人");
-                }, 1000);
+            // 关闭网页
+            closePageBtn.addEventListener('click', function() {
+                if (confirm("确定要关闭这个页面吗？")) {
+                    window.close();
+                }
             });
             
             // 同意按钮点击事件
